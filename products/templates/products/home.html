@@ -1,0 +1,71 @@
+{% extends "products/base.html" %}
+{% block head_title %}
+{% load static %}
+
+Welcome to
+
+{% endblock %}
+
+{% block jQuery %}
+
+//alert("welcome");
+
+{% endblock %}
+
+{% block jumbotron2 %}
+
+
+
+    <div class="container">
+
+      <!-- Main component for a primary marketing message or call to action -->
+      <div class="jumbotron">
+        <h1>Hello{{username_is}}</h1>
+        <p>This example is a quick exercise to illustrate how the default, static and fixed to top navbar work. It includes the responsive CSS and HTML, so it also adapts to your viewport and device.</p>
+        <p>To see the difference between static and fixed top navbars, just scroll.</p>
+        <p>
+          <a class="btn btn-lg btn-primary" href="../../components/#navbar" role="button">View navbar docs &raquo;</a>
+        </p>
+      </div>
+
+    </div> <!-- /container -->
+
+{% endblock %}
+
+{% block content %}
+
+<div class="row">
+
+
+
+{% for product in products %}
+	<div class="col-sm-4">
+		{% for item in product.productimage_set.all %}
+		<ul class="thumbnails">
+			  <li class="span4">
+			    <div class="thumbnail">
+			      {% if item.featured %}
+						<img class='img-responsive' src="{{ MEDIA_URL }}{{item.image}}"/>
+				  {% else %}
+				        <img class='img-responsive' src='{% static "img/placeholder.png" %}'>
+
+				  {% endif %}
+			      <h3>{{product.title}}</h3>
+			      <p>{{product.price}}</p>
+			      <p><a href="{% url 'products:single_product' product.slug %}" class="btn btn-primary" role="button">View</a><a href="#" class="btn btn-default" role="button">Button</a></p>
+			    </div>
+			  </li>
+		</ul>
+		
+		{% endfor %}
+
+	</div>
+{% cycle "" "" "</div><br/><hr/><div class='row'>" %}
+
+{% endfor %}
+
+
+</div>
+
+
+{% endblock %}

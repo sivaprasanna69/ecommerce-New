@@ -11,16 +11,20 @@ from .models import Cart, CartItem
 
 def view(request):
 
-
     try:
         the_id = request.session['cart_id']
     except:
         the_id = None
     if the_id:
         cart = Cart.objects.get(id=the_id)
+        new_total = 0.00
+        for item in cart.cartitem_set.all():
+            line_total = float(item.product.price) * item.quantity
+            new_total += line_total
+        cart.total = new_total
+        cart.save()
         context = {"cart": cart}
     else:
-        print("hello")
         empty_message = "your cart is empty"
         context = {"empty": True, "empty_message": empty_message}
 
@@ -106,18 +110,10 @@ def add_to_cart(request, slug):
                 cart_item.Variations.add(*product_var)
             cart_item.quantity = qty
             cart_item.save()
-
-            new_total = 0.00
-            for item in cart.cartitem_set.all():
-                line_total = float(item.product.price) * item.quantity
-                new_total += line_total
-            cart.total = new_total
-            cart.save()
             request.session['items_total'] = cart.cartitem_set.count()
             print("hello")
             return HttpResponseRedirect('/cart')
     return HttpResponseRedirect('/cart')
-
 
 
 

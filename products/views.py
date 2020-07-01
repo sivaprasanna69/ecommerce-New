@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import Http404
 
+
 # Create your views here.
 
 from .models import product, productImage
@@ -9,6 +10,8 @@ from .models import product, productImage
 def search(request):
 	try:
 		q = request.GET.get('search')
+		print("hello")
+		print(q)
 	except:
 		q = None
 	if q:
@@ -31,6 +34,7 @@ def home(request):
 def all(request):
 
 	products = product.objects.all()
+	print("inside all")
 	context = {'products':products}
 	return render(request, 'products/all.html', context)
 

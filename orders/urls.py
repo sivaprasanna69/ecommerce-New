@@ -5,14 +5,13 @@ from django.conf import settings
 from . import views
 
 
-app_name = 'cart'
+app_name = 'orders'
 urlpatterns = [
 
-	path('', views.view, name='view'),
+	path('', views.checkout, name='checkout'),
+	path('orders/', views.orders, name='orders'),
 
-	path('<int:id>/',views.remove_from_cart, name='remove_from_cart'),
-
-	path('<slug:slug>/',views.add_to_cart, name='add_to_cart'),
+	
 
 ]
 

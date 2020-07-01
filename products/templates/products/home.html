@@ -45,7 +45,22 @@ Welcome to
 			  <li class="span4">
 			    <div class="thumbnail">
 			      {% if item.featured %}
-						<img class='img-responsive' src="{{ MEDIA_URL }}{{item.image}}"/>
+			      <div style="
+			      width:160px;
+			      height:160px;
+			      /*background-color:red;*/
+			      background-image: url('{{ MEDIA_URL }}{{item.image}}');
+			      background-repeat: no-repeat;
+			      background-size: cover;
+			      background-position: center;
+			      margin: 0 auto;">
+
+			      <a href='{{product.get_absolute_url}}'>
+
+			      </a>
+
+			      </div>
+						<!-- <img class='img-responsive' src="{{ MEDIA_URL }}{{item.image}}"/> -->
 				  {% else %}
 				        <img class='img-responsive' src='{% static "img/placeholder.png" %}'>
 

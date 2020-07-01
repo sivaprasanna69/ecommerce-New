@@ -1,0 +1,12 @@
+{% extends "products/base.html" %}
+
+{% block content %}
+
+{% for ord in order %}
+
+
+<li>{{ ord.order_id }}</li>
+
+{% endfor %}
+
+{% endblock %}

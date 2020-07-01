@@ -1,15 +1,73 @@
 {% extends "products/base.html" %}
 
-{% block content %}
+{% load static %}
 
-<ul>
-{% for product in products %}
 
-<li>{{product}} {{product.price}}</li>
+{% block head_title %}
 
-{% endfor %}
-</ul>
+Products ||
 
+{% endblock %}
+
+{% block styles %}
+.jumbotron {
+	
+	/*color: red;*/
+}
 
 
 {% endblock %}
+
+{% block content %}
+
+<div class="row">
+
+
+
+{% for product in products %}
+	<div class="col-sm-2">
+		{% for item in product.productimage_set.all %}
+		<ul class="thumbnails">
+			  <li class="span4">
+			    <div class="thumbnail">
+			      {% if item.featured %}
+			      <div style="
+			      width:150px;
+			      height:150px;
+			      /*background-color:red;*/
+			      background-image: url('{{ MEDIA_URL }}{{item.image}}');
+			      background-repeat: no-repeat;
+			      background-size: cover;
+			      background-position: center;
+			      margin: 0 auto;">
+
+			      <a href='{{product.get_absolute_url}}'>
+
+			      </a>
+
+			      </div>
+						<!-- <img class='img-responsive' src="{{ MEDIA_URL }}{{item.image}}"/> -->
+				  {% else %}
+				        <img class='img-responsive' src='{% static "img/placeholder.png" %}'>
+
+				  {% endif %}
+			      <h3>{{product.title}}</h3>
+			      <p>{{product.price}}</p>
+			      <p><a href="{% url 'products:single_product' product.slug %}" class="btn btn-primary" role="button">View</a><a href="#" class="btn btn-default" role="button">Button</a></p>
+			    </div>
+			  </li>
+		</ul>
+		
+		{% endfor %}
+
+	</div>
+{% cycle "" "" "" "" "" "</div><br/><hr/><div class='row'>" %}
+
+{% endfor %}
+
+
+</div>
+
+{% endblock %}
+
+
